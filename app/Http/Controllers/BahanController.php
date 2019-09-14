@@ -59,7 +59,7 @@ class BahanController extends Controller
                     'status' => 1
                 ]);
                 $bahan->save();
-                $success_output = '<div class="alert alert-success swalDefaultSuccess">Data Inserted</div>' ;
+                $success_output = '<div class="alert alert-success" role="alert">Data Inserted</div>' ;
             }
 
             if($request->get('button_action') == "update"){
@@ -67,7 +67,7 @@ class BahanController extends Controller
                 $bahan->nama_bahan = $request->get('nama_bahan');
                 $bahan->stok_minimal = $request->get('stok_minimal');
                 $bahan->save();
-                $success_output = '<div class="alert alert-success swalDefaultSuccess">Data Updated</div>' ;
+                $success_output = '<div class="alert alert-success" role="alert">Data Updated</div>' ;
 
             }
         }
@@ -120,7 +120,9 @@ class BahanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bahan = Bahan::findOrFail($id);
+        $bahan->status = 0;
+        $bahan->save();
     }
 
     public function json()
@@ -130,11 +132,11 @@ class BahanController extends Controller
 
     public function getdata()
     {
-        $bahan = Bahan::select('id', 'nama_bahan', 'stok_minimal', 'status');
+        $bahan = Bahan::select('id', 'nama_bahan', 'stok_minimal', 'status')->where('status', 1);
         return DataTables::of($bahan)
             ->addColumn('action', function($data)
             {
-                return '<a href="#" class="btn btn-sm btn-primary edit" id="'.$data->id.'"><i class="fa fa-edit"></i> Edit</a>';
+                return '<a href="#" class="btn btn-sm btn-primary edit" id="'.$data->id.'"><i class="fa fa-edit"></i> Edit</a> <a href="#" class="btn btn-sm btn-danger delete" id="'.$data->id.'"><i class="fa fa-trash"></i> Delete</a>';
             })->make(true);
     }
 

@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="/adminlte/dist/img/AdminLTELogo.png" alt="Kedai Muri" class="brand-image img-circle elevation-3"
+    <a href="#" class="brand-link">
+        <img src="{{asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="Kedai Muri" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">Kedai Muri</span>
     </a>
@@ -16,7 +16,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                    with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link">
+                    <a href="{{route('dashboard.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -34,43 +34,43 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/master/bahan" class="nav-link">
+                            <a href="{{route('master.bahan.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Bahan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/master/menu" class="nav-link">
+                            <a href="{{route('master.menu.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Menu</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/master/kategori" class="nav-link">
+                            <a href="{{route('master.kategori.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kategori Menu</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/master/pegawai" class="nav-link">
+                            <a href="{{route('master.pegawai.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pegawai</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/master/user" class="nav-link">
+                            <a href="{{route('master.user.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>User</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/master/tax-services" class="nav-link">
+                            <a href="{{route('master.tax-services.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tax & Services</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/master/merchants" class="nav-link">
+                            <a href="{{route('master.merchants.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Merchants</p>
                             </a>
@@ -88,13 +88,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/transaksi/kasir" class="nav-link">
+                            <a href="{{route('transaksi.kasir.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kasir</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/transaksi/biaya-lain-lain" class="nav-link">
+                            <a href="{{route('transaksi.biaya-lain-lain.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Biaya Lain Lain</p>
                             </a>

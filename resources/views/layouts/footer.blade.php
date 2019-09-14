@@ -5,5 +5,5 @@
           Created with <i class="fas fa-heart"></i> by <a href="https://www.instagram.com/ariyaagustian">ariyaagustian</a>
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2019 <a href="https://adminlte.io">kedaimuri.com</a>
+        <strong>Copyright &copy; 2019 <a href="https://kedaimuri.com">kedaimuri.com</a>
     </footer>

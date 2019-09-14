@@ -4,12 +4,12 @@
 
 
 <!-- DataTables -->
-<link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+<link rel="stylesheet" href="{{asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- SweetAlert2 -->
-<link rel="stylesheet" href="/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+<link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
 <!-- Toastr -->
-<link rel="stylesheet" href="/adminlte/plugins/toastr/toastr.min.css">
+<link rel="stylesheet" href="{{asset('adminlte/plugins/toastr/toastr.min.css')}}">
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -73,7 +73,7 @@
 
 
 
-<div class="modal fade" id="modal-default">
+<div class="modal fade" id="modal-default" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="bahan_form">
@@ -84,11 +84,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <span id="form_output"></span>
                     {{-- <div class="form-group">
                         <input type="text" id="id_bahan" name="id_bahan" disabled class="form-control">
                     </div> --}}
-                    @csrf
+                    {{ csrf_field() }}
+                    <span id="form_output">
+                    </span>
                     <div class="form-group">
                         <label for="nama_bahan" class="form-control-label">Nama Bahan</label>
                         <input type="text" id="nama_bahan" name="nama_bahan" class="form-control"
@@ -104,6 +105,8 @@
                 <div class="modal-footer justify-content-between">
                     <input type="hidden" name="button_action" id="button_action" value="insert">
                     <input type="hidden" name="id" id="id" value="">
+                    <button type="button" name="notification" id="notification" style="display:none"
+                        class="swalDefaultSuccess"></button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" name="submit" id="action" value="Add" class="btn btn-primary">Save</button>
                 </div>
@@ -116,13 +119,40 @@
 <!-- /.modal -->
 
 
+<div class="modal fade" id="modal-confirm" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="bahan_form">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirmation</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin:0;"> Are you sure you want to remove this data?
+                    </h4>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
 <!-- DataTables -->
-<script src="/adminlte/plugins/datatables/jquery.dataTables.js"></script>
-<script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="{{asset('adminlte/plugins/datatables/jquery.dataTables.js')}}"></script>
+<script src="{{asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 <!-- SweetAlert2 -->
-<script src="/adminlte/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{asset('adminlte/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- Toastr -->
-<script src="/adminlte/plugins/toastr/toastr.min.js"></script>
+<script src="{{asset('adminlte/plugins/toastr/toastr.min.js')}}"></script>
 <script>
     $(document).ready(function () {
         $('#add').click(function () {
@@ -141,6 +171,7 @@
                 data: {id:id},
                 dataType: "json",
                 success: function (data) {
+                    $('#form_output').html('');
                     $('#nama_bahan').val(data.nama_bahan);
                     $('#stok_minimal').val(data.stok_minimal);
                     $('#id').val(id);
@@ -168,31 +199,56 @@
                             error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
                         }
                         $('#form_output').html(error_html);
+                    } else {
+                        $('#bahan_form')[0].reset();
+                        $('#action').val('Add');
+                        $('.modal-title').text('Add Data');
+                        $('#button_action').val('insert');
+                        $('#modal-default').modal('hide');
+                        $('#example1').DataTable().ajax.reload();
+                        $('#notification').trigger("click");
                     }
 
-                    $('#form_output').html(data).success;
-                    $('#bahan_form')[0].reset();
-                    $('#action').val('Add');
-                    $('.modal-title').text('Add Data');
-                    $('#button_action').val('insert');
-                    $('#modal-default').modal('hide');
-                    $('#example1').DataTable().ajax.reload();
 
                 }
 
             })
         });
+
+        var bahan_id;
+        $(document).on('click', '.delete', function () {
+            bahan_id = $(this).attr('id');
+            $('#modal-confirm').modal('show');
+            $('#ok_button').text('OK');
+        });
+
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: "../master/bahan/destroy/"+bahan_id,
+                beforeSend:function () {
+                    $('#ok_button').text('Deleting...');
+                },
+                success:function(data){
+                    setTimeout(function(){
+                        $('#modal-confirm').modal('hide');
+                        $('#example1').DataTable().ajax.reload();
+                    }, 2000);
+                }
+            });
+        })
     });
     $(function () {
         $("#example1").DataTable({
             processing: true,
             serverSide: true,
+            "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
             ajax: "{{route('master.bahan.getdata')}}",
             columns: [
             { data: 'id', name: 'id' },
             { data: 'nama_bahan', name: 'nama_bahan' },
             { data: 'stok_minimal', name: 'stok_minimal' },
-            { data: 'action', orderable:false, searchable:false}
+            { data: 'action', orderable:false, searchable:false},
+
         ]
 
         });

@@ -16,38 +16,37 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-});
+Route::view('/dashboard', 'dashboard.index')->name('dashboard.index');
 
 
-Route::get('/master/bahan', 'BahanController@index');
-Route::get('/master/bahan/json', 'BahanController@json');
+// Bahan
+Route::get('/master/bahan', 'BahanController@index')->name('master.bahan.index');
+Route::get('/master/bahan/json', 'BahanController@json')->name('master.bahan.json');
 Route::post('/master/bahan/store', 'BahanController@store')->name('master.bahan.store');
+Route::get('/master/bahan/destroy/{id}', 'BahanController@destroy');
 Route::get('/master/bahan/getdata', 'BahanController@getdata')->name('master.bahan.getdata');
 Route::get('/master/bahan/fetchdata', 'BahanController@fetchdata')->name('master.bahan.fetchdata');
 
+// Menu
+Route::get('/master/menu', 'MenuController@index')->name('master.menu.index');
 
-Route::get('/master/menu', function () {
-    return view('master.menu.index');
-});
-Route::get('/master/kategori', function () {
-    return view('master.kategoriMenu.index');
-});
-Route::get('/master/pegawai', function () {
-    return view('master.pegawai.index');
-});
-Route::get('/master/user', function () {
-    return view('master.user.index');
-});
-Route::get('/master/tax-services', function () {
-    return view('master.tax-services.index');
-});
-Route::get('/master/merchants', function () {
-    return view('master.merchants.index');
-});
+// Kategori
+Route::get('/master/kategori', 'KategoriController@index')->name('master.kategori.index');
 
+// Pegawai
+Route::get('/master/pegawai', 'PegawaiController@index')->name('master.pegawai.index');
 
-Route::get('/transaksi/kasir', function () {
-    return view('transaksi.kasir.index');
-});
+// User
+Route::get('/master/user', 'UserController@index')->name('master.user.index');
+
+// Tax & Services
+Route::get('/master/tax-services', 'TaxServicesController@index')->name('master.tax-services.index');
+
+// Merchants
+Route::get('/master/merchants', 'MerchantsController@index')->name('master.merchants.index');
+
+// Kasir
+Route::get('/transaksi/kasir', 'KasirController@index')->name('transaksi.kasir.index');
+
+// Biaya Lain Lain
+Route::get('/transaksi/biaya-lain-lain', 'BiayaLainLainController@index')->name('transaksi.biaya-lain-lain.index');
