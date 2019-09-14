@@ -16,6 +16,32 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function(){
+Route::get('/dashboard', function () {
     return view('dashboard.index');
+});
+Route::get('/master/bahan', function () {
+    return view('master.bahan.index');
+});
+Route::get('/master/menu', function () {
+    return view('master.menu.index');
+});
+Route::get('/master/kategori', function () {
+    return view('master.kategoriMenu.index');
+});
+Route::get('/master/pegawai', function () {
+    return view('master.pegawai.index');
+});
+Route::get('/master/user', function () {
+    return view('master.user.index');
+});
+Route::get('/master/tax-services', function () {
+    return view('master.tax-services.index');
+});
+Route::get('/master/merchants', function () {
+    return view('master.merchants.index');
+});
+
+
+Route::get('/transaksi/kasir', function () {
+    return view('transaksi.kasir.index');
 });
