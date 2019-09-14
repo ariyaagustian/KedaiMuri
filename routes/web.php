@@ -19,9 +19,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
-Route::get('/master/bahan', function () {
-    return view('master.bahan.index');
-});
+Route::get('/master/bahan', 'BahanController@index');
+Route::get('/master/bahan/json', 'BahanController@json');
 Route::get('/master/menu', function () {
     return view('master.menu.index');
 });

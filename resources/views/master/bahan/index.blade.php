@@ -47,7 +47,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped" width="100%" data-page-length='5'>
                             <thead>
                                 <tr>
                                     <th>ID Bahan</th>
@@ -56,9 +56,6 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
-                            </tbody>
                         </table>
                     </div>
                     <!-- /.card-body -->
@@ -123,7 +120,23 @@
 <script src="/adminlte/plugins/toastr/toastr.min.js"></script>
 <script>
     $(function () {
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '/master/bahan/json',
+            columns: [
+            { data: 'id', name: 'id' },
+            { data: 'nama_bahan', name: 'nama_bahan' },
+            { data: 'stok_minimal', name: 'stok_minimal' },
+            {
+                data: null,
+                render: function ( data, type, row ) {
+                    return '<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-default"><i class="fa fa-edit"></i> Edit</button>';
+                }
+            }
+        ]
+
+        });
           $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
