@@ -45,8 +45,8 @@ Route::get('/master/user', 'UserController@index')->name('master.user.index');
 // Tax & Services
 Route::get('/master/tax-services', 'TaxServicesController@index')->name('master.tax-services.index');
 
-// Merchants
-Route::get('/master/merchants', 'MerchantsController@index')->name('master.merchants.index');
+// // Merchants
+// Route::get('/master/merchants', 'MerchantsController@index')->name('master.merchants.index');
 
 // Kasir
 Route::get('/transaksi/kasir', 'KasirController@index')->name('transaksi.kasir.index');

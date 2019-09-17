@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKategoriMenuTable extends Migration
+class CreateBahanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateKategoriMenuTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_kategori_menu', function (Blueprint $table) {
+        Schema::create('tb_bahan', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_kategori');
-            $table->string('keterangan');
+            $table->string('nama_bahan');
+            $table->bigInteger('stok_minimal');
+            $table->integer('satuan_id')->unsigned();
+            $table->foreign('satuan_id')->references('id')->on('tb_satuan');
             $table->integer('status');
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ class CreateKategoriMenuTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_kategori_menu');
+        Schema::dropIfExists('tb_bahan');
     }
 }

@@ -1,7 +1,7 @@
 <div class="modal fade" id="modal-default" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" id="bahan_form">
+            <form method="post" id="kategori_form">
                 <div class="modal-header">
                     <h4 class="modal-title">Add Data</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -16,12 +16,12 @@
                     <span id="form_output">
                     </span>
                     <div class="form-group">
-                        <label for="nama_bahan" class="form-control-label">Nama Kategori</label>
-                        <input type="text" id="nama_bahan" name="nama_bahan" class="form-control">
+                        <label for="nama_kategori" class="form-control-label">Nama Kategori</label>
+                        <input type="text" id="nama_kategori" name="nama_kategori" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="stok_minimal" class="form-control-label">Keterangan</label>
-                        <textarea id="stok_minimal" name="stok_minimal" class="form-control"> </textarea>
+                        <label for="keterangan" class="form-control-label">Keterangan</label>
+                        <textarea id="keterangan" name="keterangan" class="form-control"> </textarea>
                     </div>
 
                 </div>

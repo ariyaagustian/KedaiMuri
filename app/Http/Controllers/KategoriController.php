@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\KategoriMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
 class KategoriController extends Controller

@@ -39,7 +39,7 @@
                         <div class="row-sm-12 d-flex justify-content-between align-items-center">
                             <h3 class="card-title">Daftar Kategori Menu</h3>
                             <button class="btn btn-success btn-sm float-right" data-toggle="modal"
-                                data-target="#modal-default"><i class="fas fa-plus"></i>
+                                data-target="#modal-default" name="add" id="add"><i class="fas fa-plus"></i>
                                 Tambah</button>
                         </div>
 

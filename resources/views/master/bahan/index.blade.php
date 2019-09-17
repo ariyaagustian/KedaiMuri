@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="{{asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
 <!-- Toastr -->
 <link rel="stylesheet" href="{{asset('adminlte/plugins/toastr/toastr.min.css')}}">
+<link rel="stylesheet" href="{{asset('adminlte/plugins/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -52,6 +55,7 @@
                                     <th>ID Bahan</th>
                                     <th>Nama Bahan</th>
                                     <th>Stok Minimal</th>
+                                    <th>Satuan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

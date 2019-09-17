@@ -1,11 +1,17 @@
 <!-- DataTables -->
 <script src="{{asset('adminlte/plugins/datatables/jquery.dataTables.js')}}"></script>
 <script src="{{asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+<script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- SweetAlert2 -->
 <script src="{{asset('adminlte/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- Toastr -->
 <script src="{{asset('adminlte/plugins/toastr/toastr.min.js')}}"></script>
 <script>
+    //Initialize Select2 Elements
+    $('.select2').select2({
+      theme: 'bootstrap4'
+    });
+
     $(document).ready(function () {
         $('#add').click(function () {
             $('#modal-default').modal('show');
@@ -99,15 +105,16 @@
             ajax: "{{route('master.bahan.getdata')}}",
             columnDefs: [
                 {
-                    targets: 3,
+                    targets: -1,
                     className: 'text-center'
                 }
             ],
             columns: [
-            { data: 'id', name: 'id', width:'15%'},
-            { data: 'nama_bahan', name: 'nama_bahan', width: '35%' },
-            { data: 'stok_minimal', name: 'stok_minimal', width: '35%' },
-            { data: 'action', orderable:false, searchable:false, width: '15%'},
+            { data: 'id', name: 'id'},
+            { data: 'nama_bahan', name: 'nama_bahan'},
+            { data: 'stok_minimal', name: 'stok_minimal'},
+            { data: 'satuan.nama_satuan', name: 'satuan.nama_satuan' },
+            { data: 'action', orderable:false, searchable:false},
         ],
         });
         });

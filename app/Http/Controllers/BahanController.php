@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bahan;
+use App\Satuan;
 use Illuminate\Http\Request;
 use DataTables;
 use Validator;
@@ -18,7 +19,8 @@ class BahanController extends Controller
     {
         // $data =  Datatables::of(Bahan::all())->make(true);
         // return view('master.bahan.index', compact('data'));
-        return view('master.bahan.index');
+        $satuan = Satuan::all();
+        return view('master.bahan.index', compact('satuan'));
     }
 
 
@@ -33,6 +35,7 @@ class BahanController extends Controller
         $validation = Validator::make($request->all(), [
             'nama_bahan' => 'required',
             'stok_minimal' => 'required',
+            'satuan_id' => 'required',
         ]);
 
         $error_array = array();
@@ -47,6 +50,7 @@ class BahanController extends Controller
                 $bahan = new Bahan([
                     'nama_bahan' => $request->get('nama_bahan'),
                     'stok_minimal' => $request->get('stok_minimal'),
+                    'satuan_id' => $request->get('satuan_id'),
                     'status' => 1
                 ]);
                 $bahan->save();
@@ -57,6 +61,7 @@ class BahanController extends Controller
                 $bahan = Bahan::find($request->get('id'));
                 $bahan->nama_bahan = $request->get('nama_bahan');
                 $bahan->stok_minimal = $request->get('stok_minimal');
+                $bahan->satuan_id = $request->get('satuan_id');
                 $bahan->save();
                 $success_output = '<div class="alert alert-success" role="alert">Data Updated</div>' ;
 
@@ -89,7 +94,7 @@ class BahanController extends Controller
 
     public function getdata()
     {
-        $bahan = Bahan::select('id', 'nama_bahan', 'stok_minimal', 'status')->where('status', 1);
+        $bahan = Bahan::select('id', 'nama_bahan', 'stok_minimal', 'satuan_id', 'status')->where('status', 1)->with('satuan');
         return DataTables::of($bahan)
             ->addColumn('action', function($data)
             {
@@ -103,7 +108,8 @@ class BahanController extends Controller
         $bahan = Bahan::find($id);
         $output = array(
             'nama_bahan' => $bahan->nama_bahan,
-            'stok_minimal' => $bahan->stok_minimal
+            'stok_minimal' => $bahan->stok_minimal,
+            'satuan_id' => $bahan->satuan_id,
         );
         echo json_encode($output);
     }

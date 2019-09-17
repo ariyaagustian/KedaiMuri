@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="modal-default" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -25,6 +24,16 @@
                         <label for="stok_minimal" class="form-control-label">Stok Minimal</label>
                         <input type="number" id="stok_minimal" name="stok_minimal" class="form-control"
                             placeholder="Stok Minimal">
+                    </div>
+                    <div class="form-group">
+                        <label for="satuan" class="form-control-label">Satuan</label>
+                        <select name="satuan_id" id="satuan_id" class="form-control select2">
+                            <option>Pilih</option>
+                            @foreach ($satuan as $item => $v)
+                            <option value="{{$v->id}}">{{$v->nama_satuan}}</option>
+                            @endforeach
+                        </select>
+
                     </div>
 
                 </div>
