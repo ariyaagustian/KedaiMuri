@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\KategoriMenu;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class KategoriController extends Controller
 {
@@ -13,72 +15,80 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        return view('master.kategoriMenu.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //Store Data
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'nama_kategori' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails()) {
+            foreach ($validation->messages()->getMessages() as $field_name => $messages) {
+                $error_array[] = $messages;
+            }
+        } else {
+            if ($request->get('button_action') == "insert") {
+                $kategori = new KategoriMenu([
+                    'nama_kategori' => $request->get('nama_kategori'),
+                    'keterangan' => $request->get('keterangan'),
+                    'status' => 1
+                ]);
+                $kategori->save();
+                $success_output = '<div class="alert alert-success" role="alert">Data Inserted</div>';
+            }
+
+            if ($request->get('button_action') == "update") {
+                $kategori = KategoriMenu::find($request->get('id'));
+                $kategori->nama_kategori = $request->get('nama_kategori');
+                $kategori->keterangan = $request->get('keterangan');
+                $kategori->save();
+                $success_output = '<div class="alert alert-success" role="alert">Data Updated</div>';
+            }
+        }
+        $output = array(
+            'error' => $error_array,
+            'success' => $success_output
+        );
+        echo json_encode($output);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //Destroy Data
     public function destroy($id)
     {
-        //
+        $kategori = KategoriMenu::findOrFail($id);
+        $kategori->status = 0;
+        $kategori->save();
+    }
+
+
+    //Get Data
+    public function getdata()
+    {
+        $kategori = KategoriMenu::select('id', 'nama_kategori', 'keterangan', 'status')->where('status', 1);
+        return DataTables::of($kategori)
+            ->addColumn('action', function ($data) {
+                return '<a href="#" class="btn btn-sm btn-primary edit" id="' . $data->id . '"><i class="fa fa-edit"></i> Edit</a> <a href="#" class="btn btn-sm btn-danger delete" id="' . $data->id . '"><i class="fa fa-trash"></i> Delete</a>';
+            })->make(true);
+    }
+
+
+    //Fetch Data
+    public function fetchdata(Request $request)
+    {
+        $id = $request->input('id');
+        $kategori = KategoriMenu::find($id);
+        $output = array(
+            'nama_kategori' => $kategori->nama_kategori,
+            'keterangan' => $kategori->keterangan
+        );
+        echo json_encode($output);
     }
 }

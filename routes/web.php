@@ -21,7 +21,6 @@ Route::view('/dashboard', 'dashboard.index')->name('dashboard.index');
 
 // Bahan
 Route::get('/master/bahan', 'BahanController@index')->name('master.bahan.index');
-Route::get('/master/bahan/json', 'BahanController@json')->name('master.bahan.json');
 Route::post('/master/bahan/store', 'BahanController@store')->name('master.bahan.store');
 Route::get('/master/bahan/destroy/{id}', 'BahanController@destroy');
 Route::get('/master/bahan/getdata', 'BahanController@getdata')->name('master.bahan.getdata');
@@ -32,6 +31,10 @@ Route::get('/master/menu', 'MenuController@index')->name('master.menu.index');
 
 // Kategori
 Route::get('/master/kategori', 'KategoriController@index')->name('master.kategori.index');
+Route::post('/master/kategori/store', 'KategoriController@store')->name('master.kategori.store');
+Route::get('/master/kategori/destroy/{id}', 'KategoriController@destroy');
+Route::get('/master/kategori/getdata', 'KategoriController@getdata')->name('master.kategori.getdata');
+Route::get('/master/kategori/fetchdata', 'KategoriController@fetchdata')->name('master.kategori.fetchdata');
 
 // Pegawai
 Route::get('/master/pegawai', 'PegawaiController@index')->name('master.pegawai.index');

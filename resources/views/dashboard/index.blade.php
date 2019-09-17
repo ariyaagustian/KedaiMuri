@@ -128,7 +128,7 @@
 <!-- /.content-wrapper -->
 
 {{-- chartJS --}}
-<script src="/adminlte/plugins/chart.js/Chart.js"></script>
+<script src="{{asset('adminlte/plugins/chart.js/Chart.js')}}"></script>
 
 <script>
         var ctx = document.getElementById("myChart").getContext('2d');
