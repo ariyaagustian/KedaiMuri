@@ -51,7 +51,6 @@ class BahanController extends Controller
                     'nama_bahan' => $request->get('nama_bahan'),
                     'stok_minimal' => $request->get('stok_minimal'),
                     'satuan_id' => $request->get('satuan_id'),
-                    'status' => 1
                 ]);
                 $bahan->save();
                 $success_output = '<div class="alert alert-success" role="alert">Data Inserted</div>' ;
@@ -82,9 +81,8 @@ class BahanController extends Controller
      */
     public function destroy($id)
     {
-        $bahan = Bahan::findOrFail($id);
-        $bahan->status = 0;
-        $bahan->save();
+        $bahan = Bahan::find($id);
+    	$bahan->delete();
     }
 
     // public function json()
@@ -94,7 +92,8 @@ class BahanController extends Controller
 
     public function getdata()
     {
-        $bahan = Bahan::select('id', 'nama_bahan', 'stok_minimal', 'satuan_id', 'status')->where('status', 1)->with('satuan');
+        // $bahan = Bahan::select('id', 'nama_bahan', 'stok_minimal', 'satuan_id', 'status')->where('status', 1)->with('satuan');
+        $bahan = Bahan::with('satuan')->get();
         return DataTables::of($bahan)
             ->addColumn('action', function($data)
             {

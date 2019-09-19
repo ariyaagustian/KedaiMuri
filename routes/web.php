@@ -26,6 +26,14 @@ Route::get('/master/bahan/destroy/{id}', 'BahanController@destroy');
 Route::get('/master/bahan/getdata', 'BahanController@getdata')->name('master.bahan.getdata');
 Route::get('/master/bahan/fetchdata', 'BahanController@fetchdata')->name('master.bahan.fetchdata');
 
+
+// Satuan
+Route::get('/master/satuan', 'SatuanController@index')->name('master.satuan.index');
+Route::post('/master/satuan/store', 'SatuanController@store')->name('master.satuan.store');
+Route::get('/master/satuan/destroy/{id}', 'SatuanController@destroy');
+Route::get('/master/satuan/getdata', 'SatuanController@getdata')->name('master.satuan.getdata');
+Route::get('/master/satuan/fetchdata', 'SatuanController@fetchdata')->name('master.satuan.fetchdata');
+
 // Menu
 Route::get('/master/menu', 'MenuController@index')->name('master.menu.index');
 

@@ -40,6 +40,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('master.satuan.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Satuan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('master.menu.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Menu</p>

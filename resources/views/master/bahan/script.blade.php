@@ -19,6 +19,7 @@
             $('#form_output').html('');
             $('#button_action').val('insert');
             $('#action').val('Add');
+            $('#satuan_id').val(null).trigger('change');
         });
 
         $(document).on('click', '.edit', function () {
@@ -32,6 +33,8 @@
                     $('#form_output').html('');
                     $('#nama_bahan').val(data.nama_bahan);
                     $('#stok_minimal').val(data.stok_minimal);
+                    // $('#satuan_id').val(data.satuan_id);
+                    $('#satuan_id').val(data.satuan_id).change();
                     $('#id').val(id);
                     $('#modal-default').modal('show');
                     $('#action').val('Edit');
@@ -161,7 +164,7 @@
       });
 
       $('.toastrDefaultSuccess').click(function() {
-        toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+        toastr.success('Success.')
       });
       $('.toastrDefaultInfo').click(function() {
         toastr.info('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSatuanTable extends Migration
+class RelationBahanSatuan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateSatuanTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_satuan', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama_satuan');
-            $table->string('keterangan');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('tb_bahan', function (Blueprint $table) {
+            $table->foreign('satuan_id')->references('id')->on('tb_satuan');
         });
     }
 
@@ -29,6 +25,6 @@ class CreateSatuanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_satuan');
+        //
     }
 }

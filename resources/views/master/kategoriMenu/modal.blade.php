@@ -29,7 +29,7 @@
                     <input type="hidden" name="button_action" id="button_action" value="insert">
                     <input type="hidden" name="id" id="id" value="">
                     <button type="button" name="notification" id="notification" style="display:none"
-                        class="swalDefaultSuccess"></button>
+                        class="toastrDefaultSuccess"></button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" name="submit" id="action" value="Add" class="btn btn-primary">Save</button>
                 </div>

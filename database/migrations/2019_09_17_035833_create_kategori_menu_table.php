@@ -17,8 +17,8 @@ class CreateKategoriMenuTable extends Migration
             $table->increments('id');
             $table->string('nama_kategori');
             $table->string('keterangan');
-            $table->integer('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

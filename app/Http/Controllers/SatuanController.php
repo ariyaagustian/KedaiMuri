@@ -2,29 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\KategoriMenu;
+use App\Satuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
-class KategoriController extends Controller
+class SatuanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('master.kategoriMenu.index');
+        return view('master.satuan.index');
     }
 
-
-    //Store Data
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'nama_kategori' => 'required',
+            'nama_satuan' => 'required',
             'keterangan' => 'required',
         ]);
 
@@ -36,19 +29,19 @@ class KategoriController extends Controller
             }
         } else {
             if ($request->get('button_action') == "insert") {
-                $kategori = new KategoriMenu([
-                    'nama_kategori' => $request->get('nama_kategori'),
+                $satuan = new Satuan([
+                    'nama_satuan' => $request->get('nama_satuan'),
                     'keterangan' => $request->get('keterangan'),
                 ]);
-                $kategori->save();
+                $satuan->save();
                 $success_output = '<div class="alert alert-success" role="alert">Data Inserted</div>';
             }
 
             if ($request->get('button_action') == "update") {
-                $kategori = KategoriMenu::find($request->get('id'));
-                $kategori->nama_kategori = $request->get('nama_kategori');
-                $kategori->keterangan = $request->get('keterangan');
-                $kategori->save();
+                $satuan = Bahan::find($request->get('id'));
+                $satuan->nama_satuan = $request->get('nama_satuan');
+                $satuan->keterangan = $request->get('keterangan');
+                $satuan->save();
                 $success_output = '<div class="alert alert-success" role="alert">Data Updated</div>';
             }
         }
@@ -59,34 +52,29 @@ class KategoriController extends Controller
         echo json_encode($output);
     }
 
-
-    //Destroy Data
     public function destroy($id)
     {
-        $kategori = KategoriMenu::findOrFail($id);
-        $kategori->delete();
+        $satuan = Satuan::find($id);
+    	$satuan->delete();
     }
 
-
-    //Get Data
     public function getdata()
     {
-        $kategori = KategoriMenu::all();
-        return DataTables::of($kategori)
+        // $bahan = Bahan::select('id', 'nama_bahan', 'stok_minimal', 'satuan_id', 'status')->where('status', 1)->with('satuan');
+        $satuan = Satuan::all();
+        return DataTables::of($satuan)
             ->addColumn('action', function ($data) {
                 return '<a href="#" class="btn btn-sm btn-primary edit" id="' . $data->id . '"><i class="fa fa-edit"></i> Edit</a> <a href="#" class="btn btn-sm btn-danger delete" id="' . $data->id . '"><i class="fa fa-trash"></i> Delete</a>';
             })->make(true);
     }
 
-
-    //Fetch Data
     public function fetchdata(Request $request)
     {
         $id = $request->input('id');
-        $kategori = KategoriMenu::find($id);
+        $satuan = Satuan::find($id);
         $output = array(
-            'nama_kategori' => $kategori->nama_kategori,
-            'keterangan' => $kategori->keterangan
+            'nama_satuan' => $satuan->nama_bahan,
+            'keterangan' => $satuan->stok_minimal,
         );
         echo json_encode($output);
     }

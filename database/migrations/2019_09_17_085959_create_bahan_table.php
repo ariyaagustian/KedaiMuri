@@ -18,9 +18,8 @@ class CreateBahanTable extends Migration
             $table->string('nama_bahan');
             $table->bigInteger('stok_minimal');
             $table->integer('satuan_id')->unsigned();
-            $table->foreign('satuan_id')->references('id')->on('tb_satuan');
-            $table->integer('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
